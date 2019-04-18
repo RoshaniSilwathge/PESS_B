@@ -42,7 +42,7 @@ public class JwtTokenProvider {
 	public Long getUserCredentialIdFromJWT(String token) {
 		Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
 
-		return Long.parseLong(claims.getSubject());
+		return Long.parseLong(claims.getSubject().split("--")[0]);
 	}
 
 	public boolean validateToken(String authToken) {

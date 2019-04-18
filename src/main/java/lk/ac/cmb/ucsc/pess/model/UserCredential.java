@@ -1,6 +1,9 @@
 package lk.ac.cmb.ucsc.pess.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -8,23 +11,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "user_credentials", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
+@EntityListeners(AuditingEntityListener.class)
 public class UserCredential {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@NotBlank
 	private String username;
 
-	@NotBlank
-	@Size(max = 100)
 	private String password;
 
 	@Enumerated(EnumType.STRING)
@@ -33,14 +35,27 @@ public class UserCredential {
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean enabled;
 
+	@CreatedDate
+	private LocalDateTime createdAt;
+
+	@LastModifiedDate
+	private LocalDateTime updatedAt;
+
 	public UserCredential() {
 		super();
 	}
 
-	public UserCredential(long id, @NotBlank String username, @NotBlank @Size(max = 100) String password,
-			UserRole userRole, boolean enabled) {
+	public UserCredential(long id, String username, String password, UserRole userRole, boolean enabled) {
 		super();
 		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.userRole = userRole;
+		this.enabled = enabled;
+	}
+
+	public UserCredential(String username, String password, UserRole userRole, boolean enabled) {
+		super();
 		this.username = username;
 		this.password = password;
 		this.userRole = userRole;
@@ -89,6 +104,22 @@ public class UserCredential {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }

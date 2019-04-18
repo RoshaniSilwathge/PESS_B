@@ -17,7 +17,7 @@ public class PessApplication {
 
 	@PostConstruct
 	void init() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Colombo"));
 	}
 
 	public static void main(String[] args) {
