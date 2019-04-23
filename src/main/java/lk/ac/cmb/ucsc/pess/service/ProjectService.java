@@ -9,4 +9,5 @@ public interface ProjectService {
 	Project save(ProjectInputDto projectInput);
 	Project update(long projectId,ProjectInputDto projectInput);
 	List<Project> getAll();
+	List<Project> getAllActive();
 }

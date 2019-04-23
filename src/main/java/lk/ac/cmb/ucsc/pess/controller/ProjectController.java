@@ -35,6 +35,11 @@ public class ProjectController {
 		return ResponseEntity.ok(projectService.getAll());
 	}
 
+	@GetMapping("/active")
+	public ResponseEntity<?> getAllActiveProjects() {
+		return ResponseEntity.ok(projectService.getAllActive());
+	}
+
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateProject(@PathVariable Long id, @Valid @RequestBody ProjectInputDto projectInput) {
 		return ResponseEntity.ok(projectService.update(id, projectInput));

@@ -45,4 +45,9 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.save(savedProjectins);
 	}
 
+	@Override
+	public List<Project> getAllActive() {
+		return projectRepository.findAllByEnabled(true);
+	}
+
 }

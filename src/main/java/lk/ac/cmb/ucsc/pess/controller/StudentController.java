@@ -35,6 +35,11 @@ public class StudentController {
 		return ResponseEntity.ok(studentService.getAll());
 	}
 
+	@GetMapping("/active")
+	public ResponseEntity<?> getAllActiveStudents() {
+		return ResponseEntity.ok(studentService.getAllActive());
+	}
+
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateStudent(@PathVariable Long id, @Valid @RequestBody StudentInputDto studentInput) {
 		return ResponseEntity.ok(studentService.update(id, studentInput));

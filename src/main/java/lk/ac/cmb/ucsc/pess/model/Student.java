@@ -1,8 +1,13 @@
 package lk.ac.cmb.ucsc.pess.model;
 
+import java.util.Collections;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,6 +30,9 @@ public class Student extends User {
 	@ManyToOne
 	@JoinColumn
 	private Project project;
+
+	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+	private List<StudentAlertStatus> studentAlertStatus = Collections.emptyList();
 
 	public Student() {
 		super();
@@ -114,6 +122,15 @@ public class Student extends User {
 
 	public String getProjectName() {
 		return project.getName();
+	}
+
+	@JsonIgnore
+	public List<StudentAlertStatus> getStudentAlertStatus() {
+		return studentAlertStatus;
+	}
+
+	public void setStudentAlertStatus(List<StudentAlertStatus> studentAlertStatus) {
+		this.studentAlertStatus = studentAlertStatus;
 	}
 
 }

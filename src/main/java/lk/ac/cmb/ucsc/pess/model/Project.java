@@ -34,9 +34,12 @@ public class Project {
 
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<ProjectSubmission> projectSubmissions = Collections.emptyList();
-	
+
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<Student> students = Collections.emptyList();
+
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+	private List<Alert> alerts = Collections.emptyList();
 
 	@CreatedDate
 	private LocalDateTime createdAt;
@@ -124,12 +127,22 @@ public class Project {
 		this.enabled = enabled;
 	}
 
+	@JsonIgnore
 	public List<Student> getStudents() {
 		return students;
 	}
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+	}
+
+	@JsonIgnore
+	public List<Alert> getAlerts() {
+		return alerts;
+	}
+
+	public void setAlerts(List<Alert> alerts) {
+		this.alerts = alerts;
 	}
 
 }

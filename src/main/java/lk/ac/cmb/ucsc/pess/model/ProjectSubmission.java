@@ -16,6 +16,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "project_submissions")
 @EntityListeners(AuditingEntityListener.class)
 public class ProjectSubmission {
@@ -42,6 +44,20 @@ public class ProjectSubmission {
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
 
+	public ProjectSubmission() {
+		super();
+	}
+
+	public ProjectSubmission(String description, ProjectSubmissionType projectSubmissionType, LocalDateTime startsAt,
+			LocalDateTime endsAt, Project project) {
+		super();
+		this.description = description;
+		this.projectSubmissionType = projectSubmissionType;
+		this.startsAt = startsAt;
+		this.endsAt = endsAt;
+		this.project = project;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -66,22 +82,23 @@ public class ProjectSubmission {
 		this.projectSubmissionType = projectSubmissionType;
 	}
 
-	public LocalDateTime getStartDate() {
+	public LocalDateTime getStartsAt() {
 		return startsAt;
 	}
 
-	public void setStartDate(LocalDateTime startDate) {
-		this.startsAt = startDate;
+	public void setStartsAt(LocalDateTime startsAt) {
+		this.startsAt = startsAt;
 	}
 
-	public LocalDateTime getEndDate() {
+	public LocalDateTime getEndsAt() {
 		return endsAt;
 	}
 
-	public void setEndDate(LocalDateTime endDate) {
-		this.endsAt = endDate;
+	public void setEndsAt(LocalDateTime endsAt) {
+		this.endsAt = endsAt;
 	}
 
+	@JsonIgnore
 	public Project getProject() {
 		return project;
 	}

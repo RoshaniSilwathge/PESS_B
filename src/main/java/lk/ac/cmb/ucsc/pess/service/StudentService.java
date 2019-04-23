@@ -11,4 +11,6 @@ public interface StudentService {
 	Student update(long studentId, StudentInputDto studentInput);
 
 	List<Student> getAll();
+	
+	List<Student> getAllActive();
 }
